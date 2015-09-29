@@ -1,0 +1,70 @@
+<?php
+
+/**
+ * Implements hook_schema
+ * @return mixed
+ */
+function devshop_varnish_schema() {
+    $schema['hosting_varnish_server'] = array(
+        'fields' => array(
+            'vid' => array(
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'nid' => array(
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'varnish_port' => array(
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+        ),
+        'primary key' => array('vid', 'nid'),
+    );
+    $schema['hosting_ssl_site'] = array(
+        'fields' => array(
+            'vid' => array(
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'nid' => array(
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'varnish_enabled' => array(
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+        ),
+        'primary key' => array('vid', 'nid'),
+    );
+    return $schema;
+}
+
+/**
+ * Implements hook_install()
+ */
+function devshop_varnish_install() {
+    drupal_install_schema('hosting_ssl');
+}
+
+/**
+ * Implements hook_uninstall()
+ */
+function devshop_varnish_uninstall() {
+    db_query("DELETE FROM {hosting_service} WHERE service='http' and type='apache_varnish'");
+    drupal_uninstall_schema('devshop_varnish');
+}
