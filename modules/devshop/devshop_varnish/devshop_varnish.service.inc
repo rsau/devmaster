@@ -42,4 +42,35 @@ class hostingService_http_apache_varnish extends hostingService_http_apache {
             '#weight' => -8,
         );
     }
+
+    function view(&$render) {
+        parent::view($render);
+        $render['port']['#title'] = t('Apache Port');
+        $render['varnish_port'] = array(
+            '#type' => 'item',
+            '#title' => t('Varnish Port'),
+            '#value' => filter_xss($this->varnish_port),
+        );
+    }
+
+    function load() {
+        parent::load();
+        $this->mergeData("SELECT varnish_port FROM {hosting_varnish_server} WHERE vid=%d", $this->server->vid);
+        $this->varnish_enabled = TRUE;
+    }
+
+    function insert() {
+        parent::insert();
+        db_query("INSERT INTO {hosting_varnish_server} (vid, nid, varnish_port) VALUES (%d, %d, %d)", $this->server->vid, $this->server->nid, $this->varnish_port);
+    }
+
+    function delete() {
+        parent::delete();
+        db_query("DELETE FROM {hosting_varnish_server} WHERE nid=%d", $this->server->nid);
+    }
+
+    function delete_revision() {
+        parent::delete_revision();
+        db_query("DELETE FROM {hosting_varnish_server} WHERE vid=%d", $this->server->vid);
+    }
 }

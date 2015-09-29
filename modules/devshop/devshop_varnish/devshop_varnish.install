@@ -58,7 +58,7 @@ function devshop_varnish_schema() {
  * Implements hook_install()
  */
 function devshop_varnish_install() {
-    drupal_install_schema('hosting_ssl');
+    drupal_install_schema('devshop_varnish');
 }
 
 /**
