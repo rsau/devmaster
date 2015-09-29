@@ -1,0 +1,10 @@
+<?php
+
+/**
+ * Implementation of hook_hosting_service()
+ */
+function devshop_varnish_hosting_service() {
+    return array(
+        'apache_varnish' => 'http',
+    );
+}

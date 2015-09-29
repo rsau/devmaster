@@ -1,0 +1,6 @@
+name = DevShop Varnish
+description = Provides Apache+Varnish web server.
+core = 6.x
+package = DevShop
+
+dependencies[] = hosting
