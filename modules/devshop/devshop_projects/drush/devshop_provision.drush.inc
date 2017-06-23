@@ -7,7 +7,6 @@
 require_once('vendor/autoload.php');
 
 use Symfony\Component\Process\Process;
-use Symfony\Component\ClassLoader\ClassLoader;
 
 /**
  * Implements hook_drush_init()
@@ -258,10 +257,8 @@ function devshop_drush_process($command, $cwd = null, $label = 'Process', $env =
       if (drush_get_option('is-devshop', FALSE)) {
         drush_log($buffer, 'devshop_info');
       }
-      else {
-        echo $buffer;
-      }
-      
+      echo $buffer;
+
 //      if (Process::ERR === $type) {
 //        drush_log($buffer, 'devshop_info');
 //      } else {
